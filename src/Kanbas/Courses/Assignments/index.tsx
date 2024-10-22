@@ -5,9 +5,15 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import LessonControlButtons from "../Modules/LessonControlButtons";
 import { GoChecklist } from "react-icons/go";
 
+import { useParams } from "react-router";
+import * as db from "../../Database";
+import { Link } from "react-router-dom";
+
 
 
 export default function Assignments() {
+  const { cid } = useParams();
+  const assignments = db.assignments;
   return (
     <div id="wd-assignments">
 
@@ -23,60 +29,27 @@ export default function Assignments() {
             <AssignmentHeadControlButtons />
           </div>
 
-          <ul className="wd-lessons list-group rounded-0">
-            <li className="wd-assignment-lesson list-group-item p-3 ps-1">
-              <BsGripVertical className="fs-3" />
-              <GoChecklist className="fs-3" style={{ color: "green" }} />
-              <div>
-                <a className="m-0 text-dark decoration-none"
-                  href="#/Kanbas/Courses/1234/Assignments/123"><b>A1</b></a>
-                <div className="flex-auto">
-                  <p className="m-0 text-danger pe-1">Multiple Modules</p>
-                  <p className="m-0">| <b>Not available until</b> May 6 at 12:00am |</p>
+          {assignments
+            .filter((assignment: any) => assignment.course === cid)
+            .map((assignment: any) => (
+              <li className="wd-assignment-lesson list-group-item p-3 ps-1">
+                <BsGripVertical className="fs-3" />
+                <GoChecklist className="fs-3" style={{ color: "green" }} />
+                <div>
+                  <a className="m-0 text-dark decoration-none">
+                    <Link to={`/Kanbas/Courses/${assignment.course}/Assignments/${assignment._id}`}
+                      className="wd-dashboard-course-link text-decoration-none text-dark" ><b>{assignment._id}</b></Link></a>
+                  <div className="flex-auto">
+                    <p className="m-0 text-danger pe-1">Multiple Modules</p>
+                    <p className="m-0">| <b>Not available until</b> {assignment.available}</p>
+                  </div>
+                  <p className="m-0"> | <b>Due</b> {assignment.due} | {assignment.pts}pt</p>
                 </div>
-                <p className="m-0"><b>Due</b> May 13 at 11:59pm | 100pt</p>
-              </div>
-              <div className="ml-auto">
-                <LessonControlButtons />
-              </div>
-            </li>
-
-            <li className="wd-assignment-lesson list-group-item p-3 ps-1">
-              <BsGripVertical className="fs-3" />
-              <GoChecklist className="fs-3" style={{ color: "green" }} />
-              <div>
-                <a className="m-0 text-dark decoration-none"
-                  href="#/Kanbas/Courses/1234/Assignments/123"><b>A2</b></a>
-                <div className="flex-auto">
-                  <p className="m-0 text-danger pe-1">Multiple Modules</p>
-                  <p className="m-0">| <b>Not available until</b> May 13 at 12:00am |</p>
+                <div className="ml-auto">
+                  <LessonControlButtons />
                 </div>
-                <p className="m-0"><b>Due</b> May 20 at 11:59pm | 100pt</p>
-              </div>
-              <div className="ml-auto">
-                <LessonControlButtons />
-              </div>
-            </li>
-
-            <li className="wd-assignment-lesson list-group-item p-3 ps-1">
-              <BsGripVertical className="fs-3" />
-              <GoChecklist className="fs-3" style={{ color: "green" }} />
-              <div>
-                <a className="m-0 text-dark decoration-none"
-                  href="#/Kanbas/Courses/1234/Assignments/123"><b>A3</b></a>
-                <div className="flex-auto">
-                  <p className="m-0 text-danger pe-1">Multiple Modules</p>
-                  <p className="m-0">| <b>Not available until</b> May 20 at 12:00am |</p>
-                </div>
-                <p className="m-0"><b>Due</b> May 27 at 11:59pm | 100pt</p>
-              </div>
-              <div className="ml-auto">
-                <LessonControlButtons />
-              </div>
-            </li>
-          </ul>
-
-
+              </li>
+            ))}
 
 
         </li>
