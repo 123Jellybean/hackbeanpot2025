@@ -2,12 +2,19 @@
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { addAssignment, updateAssignment } from "./reducer";
 
 export default function AssignmentEditor() {
 
     const { aid } = useParams();
 
-    const assignments = db.assignments;
+    const assignments = useSelector((state: any) => state.assignmentReducer).assignments
+
+    const dispatch = useDispatch()
+
+    const { cid } = useParams();
     return (
 
 
@@ -20,15 +27,25 @@ export default function AssignmentEditor() {
                 .filter((assignment: any) => assignment._id === aid)
                 .map((assignment: any) => (<div className="input-box">
                     <input id="wd-assignment-editor-title" className="input-primary form-control"
-                        value={assignment.title} />
+                        value={assignment.title}
+                        onChange={(e) => dispatch(updateAssignment(
+                            { _id: aid, title: e.target.value }
+                        ))} />
 
                     <textarea id="wd-assignment-editor" className="input-secondary form-control"
-                        defaultValue={assignment.description} >
+                        value={assignment.description}
+                        onChange={(e) => dispatch(updateAssignment(
+                            { _id: aid, description: e.target.value }
+                        ))}
+                    >
                     </textarea>
 
                     <div className="the-grid">
                         <p className="">Points</p>
-                        <input id="wd-points" className="form-control" value={assignment.pts} />
+                        <input id="wd-points" className="form-control" value={assignment.pts}
+                            onChange={(e) => dispatch(updateAssignment(
+                                { _id: aid, pts: e.target.value }
+                            ))} />
                         <p className="">Assignemnt Group</p>
                         <div className="dropdown-editor">
                             <select id="wd-group" className="form-control">
@@ -78,7 +95,10 @@ export default function AssignmentEditor() {
                                 <input type="date"
                                     className="form-control"
                                     id="wd-due-date"
-                                    defaultValue={assignment.duedate} />
+                                    defaultValue={assignment.duedate}
+                                    onChange={(e) => dispatch(updateAssignment(
+                                        { _id: aid, due: (e.target.value).toString() }
+                                    ))} />
                             </div>
                             <div className="p-0 mt-3" style={{ display: "flex" }}>
                                 <div>
@@ -87,6 +107,9 @@ export default function AssignmentEditor() {
                                         className="form-control"
                                         id="wd-available-from"
                                         defaultValue={assignment.outdate}
+                                        onChange={(e) => dispatch(updateAssignment(
+                                            { _id: aid, outdate: (e.target.value).toString() }
+                                        ))}
                                     />
                                 </div>
                                 <div style={{ marginLeft: "5px" }}>
@@ -94,7 +117,10 @@ export default function AssignmentEditor() {
                                     <input type="date"
                                         className="form-control"
                                         id="wd-available-until"
-                                        defaultValue={assignment.duedate} />
+                                        defaultValue={assignment.duedate}
+                                        onChange={(e) => dispatch(updateAssignment(
+                                            { _id: aid, duedate: (e.target.value).toString() }
+                                        ))} />
                                 </div>
                             </div>
                         </div>

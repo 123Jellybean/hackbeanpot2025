@@ -82,7 +82,7 @@
         
     { "_id": "A161", "title": "Advanced Algorithms Assignment", "course": "RS121", "available": "May 6 at 12:00am", "due": "Due May 13 at 11:59pm", "outdate": "2024-05-06", "duedate": "2024-05-13", "pts": "100", "description": "Submit an assignment on advanced algorithms, focusing on dynamic programming, graph algorithms, and complexity analysis. Include detailed solutions to the problem set." },
     { "_id": "A162", "title": "Data Structures and Algorithms Project", "course": "RS121", "available": "May 13 at 12:00am", "due": "Due May 20 at 11:59pm", "outdate": "2024-05-13", "duedate": "2024-05-20", "pts": "100", "description": "Implement a project involving data structures such as trees, graphs, and hash tables. Submit both the source code and a report on the performance analysis." },
-    { "_id": "A163", "title": "Algorithm Optimization Lab", "course": "RS121", "available": "May 20 at 12:00am", "due": "Due May 27 at 11:59pm", "outdate": "2024-05-20", "duedate": "2024-05-27", "pts": "100", "description": "Optimize a given algorithm for both time and space complexity. Submit the optimized code along with a report on the improvements achieved." }
+    { "_id": "A163", "title": "Algorithm Optimization Lab", "course": "RS121", "available": "May 20 at 12:00am", "due": "Due May 27 at 11:59pm", "outdate": "2024-05-20", "duedate": "2024-05-27", "pts": "100", "description": "Optimize a given algorithm for both time and space complexity. Submit the optimized code along with a report on the improvements achieved." },
         
-        
+    { "_id": "A1", "title": "New Assignment", "course": "A1", "available": "May 20 at 12:00am", "due": "Due May 27 at 11:59pm", "outdate": "2024-05-20", "duedate": "2024-05-27", "pts": "100", "description": "New assignment" }
   ]

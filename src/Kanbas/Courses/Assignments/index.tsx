@@ -4,17 +4,26 @@ import AssignmentHeadControlButtons from "./AssignmentHeadControlButtons";
 import { IoMdArrowDropdown } from "react-icons/io";
 import LessonControlButtons from "../Modules/LessonControlButtons";
 import { GoChecklist } from "react-icons/go";
-
+import React, { useState } from "react"
+import { FaTrash } from "react-icons/fa";
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { deleteAssignment, updateAssignment } from "./reducer";
 
 
 
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments = db.assignments;
+  const assignments = useSelector((state: any) => state.assignmentReducer).assignments
+
+  const deleteAssignment = (AssignmentId: string) => {
+    updateAssignment(assignments.filter((m: any) => m._id !== AssignmentId));
+  };
+
   return (
+
     <div id="wd-assignments">
 
       <AssignmentsControls /> <br /> <br />
@@ -35,6 +44,7 @@ export default function Assignments() {
               <li className="wd-assignment-lesson list-group-item p-3 ps-1">
                 <BsGripVertical className="fs-3" />
                 <GoChecklist className="fs-3" style={{ color: "green" }} />
+
                 <div>
                   <a className="m-0 text-dark decoration-none">
                     <Link to={`/Kanbas/Courses/${assignment.course}/Assignments/${assignment._id}`}
@@ -46,6 +56,8 @@ export default function Assignments() {
                   <p className="m-0"> | <b>Due</b> {assignment.due} | {assignment.pts}pt</p>
                 </div>
                 <div className="ml-auto">
+                  <FaTrash className="text-danger me-2 mb-1" onClick={() => deleteAssignment(assignment._id)} />
+
                   <LessonControlButtons />
                 </div>
               </li>
