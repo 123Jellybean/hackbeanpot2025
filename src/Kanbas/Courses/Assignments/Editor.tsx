@@ -108,7 +108,7 @@ export default function AssignmentEditor() {
                                         id="wd-available-from"
                                         defaultValue={assignment.outdate}
                                         onChange={(e) => dispatch(updateAssignment(
-                                            { _id: aid, outdate: (e.target.value).toString() }
+                                            { _id: aid, outdate: (e.target.value).toString }
                                         ))}
                                     />
                                 </div>

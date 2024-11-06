@@ -13,6 +13,8 @@ export default function Dashboard({ courses, course, setCourse, addNewCourse,
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = db;
 
+  const [showAll, setShowAll] = useState(false)
+
 
   return (
     <div id="wd-dashboard">
@@ -45,7 +47,7 @@ export default function Dashboard({ courses, course, setCourse, addNewCourse,
 
       {currentUser.role == "STUDENT" &&
         <div>
-          <button style={{ float: "right" }} className="btn btn-primary">
+          <button style={{ float: "right" }} className="btn btn-primary" onClick={() => setShowAll(prev => !prev)}>
             Enrollments
           </button>
         </div>
@@ -58,7 +60,7 @@ export default function Dashboard({ courses, course, setCourse, addNewCourse,
 
           {courses
             .filter((course) =>
-              enrollments.some(
+              showAll || enrollments.some(
                 (enrollment) =>
                   enrollment.user === currentUser._id &&
                   enrollment.course === course._id

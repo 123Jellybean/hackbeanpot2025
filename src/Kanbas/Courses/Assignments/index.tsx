@@ -9,7 +9,7 @@ import { FaTrash } from "react-icons/fa";
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteAssignment, updateAssignment } from "./reducer";
 
 
@@ -18,9 +18,7 @@ export default function Assignments() {
   const { cid } = useParams();
   const assignments = useSelector((state: any) => state.assignmentReducer).assignments
 
-  const deleteAssignment = (AssignmentId: string) => {
-    updateAssignment(assignments.filter((m: any) => m._id !== AssignmentId));
-  };
+  const dispatch = useDispatch()
 
   return (
 
@@ -56,7 +54,7 @@ export default function Assignments() {
                   <p className="m-0"> | <b>Due</b> {assignment.due} | {assignment.pts}pt</p>
                 </div>
                 <div className="ml-auto">
-                  <FaTrash className="text-danger me-2 mb-1" onClick={() => deleteAssignment(assignment._id)} />
+                  <FaTrash className="text-danger me-2 mb-1" onClick={() => dispatch(deleteAssignment(assignment._id))} />
 
                   <LessonControlButtons />
                 </div>
