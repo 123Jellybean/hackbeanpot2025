@@ -4,14 +4,15 @@ import AssignmentHeadControlButtons from "./AssignmentHeadControlButtons";
 import { IoMdArrowDropdown } from "react-icons/io";
 import LessonControlButtons from "../Modules/LessonControlButtons";
 import { GoChecklist } from "react-icons/go";
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { FaTrash } from "react-icons/fa";
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAssignment, updateAssignment } from "./reducer";
-
+import { setAssignments, deleteAssignment, updateAssignment, addAssignment } from "./reducer";
+import * as assignmentsClient from "../client";
+import * as assignmentClient from "./client";
 
 
 export default function Assignments() {
@@ -19,6 +20,28 @@ export default function Assignments() {
   const assignments = useSelector((state: any) => state.assignmentReducer).assignments
 
   const dispatch = useDispatch()
+  const saveAssignment = async (assignment: any) => {
+    await assignmentClient.updateAssignment(assignment);
+    dispatch(updateAssignment(assignment));
+  };
+
+
+  const removeAssignment = async (assignmentId: string) => {
+    await assignmentClient.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
+
+
+
+
+  const fetchAssignments = async () => {
+    const assignments = await assignmentsClient.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
 
   return (
 
@@ -37,7 +60,7 @@ export default function Assignments() {
           </div>
 
           {assignments
-            .filter((assignment: any) => assignment.course === cid)
+
             .map((assignment: any) => (
               <li className="wd-assignment-lesson list-group-item p-3 ps-1">
                 <BsGripVertical className="fs-3" />
@@ -54,7 +77,7 @@ export default function Assignments() {
                   <p className="m-0"> | <b>Due</b> {assignment.due} | {assignment.pts}pt</p>
                 </div>
                 <div className="ml-auto">
-                  <FaTrash className="text-danger me-2 mb-1" onClick={() => dispatch(deleteAssignment(assignment._id))} />
+                  <FaTrash className="text-danger me-2 mb-1" onClick={() => removeAssignment(assignment._id)} />
 
                   <LessonControlButtons />
                 </div>

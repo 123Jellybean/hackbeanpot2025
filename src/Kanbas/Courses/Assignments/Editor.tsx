@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addAssignment, updateAssignment } from "./reducer";
+import * as assignmentClient from "./client";
+
 
 export default function AssignmentEditor() {
 
@@ -13,6 +15,11 @@ export default function AssignmentEditor() {
     const assignments = useSelector((state: any) => state.assignmentReducer).assignments
 
     const dispatch = useDispatch()
+
+    const saveAssignment = async (assignment: any) => {
+        await assignmentClient.updateAssignment(assignment);
+        dispatch(updateAssignment(assignment));
+    };
 
     const { cid } = useParams();
     return (
