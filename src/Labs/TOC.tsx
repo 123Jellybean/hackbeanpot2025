@@ -41,6 +41,10 @@ export default function TOC() {
           Kanbas
         </a></li>
       <li className="nav-item">
+        <a id="wd-k" href="#/Ghibli" className="nav-link">
+          Ghibli
+        </a></li>
+      <li className="nav-item">
         <Link to="https://github.com/migu31-h/kanbas-react-web-app.git"
           id="wd-github" className="nav-link">
           kanbas-react-web-app
