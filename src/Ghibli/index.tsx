@@ -131,8 +131,9 @@ export default function Ghibli() {
               />
             } />
 
-            <Route path="/Courses/:cid/*" element={
+            <Route path="/Movies/:cid/*" element={
               <Courses courses={courses} />} />
+
             <Route path="/Search" element={
 
               <Search

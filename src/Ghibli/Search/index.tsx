@@ -65,7 +65,7 @@ export default function Search({
                         >
                             <div className="card rounded-3 overflow-hidden">
                                 <Link
-                                    to={`/Ghibli/Courses/${course._id}/Home`}
+                                    to={`/Ghibli/Movies/${course._id}/Home`}
                                     className="wd-dashboard-course-link text-decoration-none text-dark"
                                 >
                                     <img

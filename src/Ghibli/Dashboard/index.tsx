@@ -92,7 +92,7 @@ export default function Dashboard({ courses, course, setCourse, addNewCourse,
             <div className="wd-dashboard-course col" style={{ width: "300px" }}>
               <div className="card rounded-3 overflow-hidden">
                 <Link
-                  to={`/Ghibli/Courses/${course._id}/Home`}
+                  to={`/Ghibli/Movies/${course._id}/Home`}
                   className="wd-dashboard-course-link text-decoration-none text-dark"
                 >
                   <img src={course.movie_banner} width="100%" height={160} />
