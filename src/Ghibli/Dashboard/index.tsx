@@ -48,7 +48,7 @@ export default function Dashboard({
           className="mb-0 p-3"
           style={{ fontFamily: "Courier New", fontWeight: "bold" }}
         >
-          Dashboard
+          Home
         </h1>
 
       </div>

@@ -16,11 +16,11 @@ export default function GhibliNavigation() {
       className="list-group rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2"
     >
       <Link
-        to="/Ghibli/Dashboard"
+        to="/Ghibli/Home"
         className="list-group-item bg-black border-0 text-center text-white"
       >
         <img src="/images/totoro.png" width="75px" alt="Totoro" />
-        Dashboard
+        Home
       </Link>
 
       {links.map((link) => (

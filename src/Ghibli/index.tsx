@@ -157,10 +157,10 @@ export default function Ghibli() {
         <GhibliNavigation />
         <div className="wd-main-content-offset">
           <Routes>
-            <Route path="/" element={<Navigate to="Dashboard" />} />
+            <Route path="/" element={<Navigate to="Home" />} />
             <Route path="/Account/*" element={<Account />} />
             <Route
-              path="/Dashboard"
+              path="/Home"
               element={
                 <Dashboard
                   movies={movies}

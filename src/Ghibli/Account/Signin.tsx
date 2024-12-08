@@ -12,7 +12,7 @@ export default function Signin() {
     const user = await client.signin(credentials);
     if (!user) return;
     dispatch(setCurrentUser(user));
-    navigate("/Ghibli/Dashboard");
+    navigate("/Ghibli/Home");
   };
 
   return (
