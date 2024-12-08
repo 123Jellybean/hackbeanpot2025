@@ -3,8 +3,14 @@ body * {  font-family: Arial, Helvetica, sans-serif;  }
 
 @media (min-width: 768px) {
   #wd-kanbas .wd-main-content-offset {
-    padding-left: 140px !important;
+    padding-left: 110px !important;
   }
+}
+
+.h2 {
+    font-size: 1.5rem;
+    font-weight: 1000;
+    line-height: 1.2;
 }
 
 .btn-secondary {
@@ -86,7 +92,6 @@ body * {  font-family: Arial, Helvetica, sans-serif;  }
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #c7cdd1;
-    
 }
 
 .input-secondary{
@@ -137,11 +142,18 @@ body * {  font-family: Arial, Helvetica, sans-serif;  }
 }
 
 .wd-account-navigation {
-    border-left: 3px solid black !important;
+    border-left: 3px solid white !important;
     display: flex; 
-    padding-left: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18x;
 }
 
 .wd-account-navigation-not-selec {
-    display: flex; 
+    display: flex;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18x;
+}
+
+.th {
+  background-color: transparent;
 }

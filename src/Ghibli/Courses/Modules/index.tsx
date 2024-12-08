@@ -60,8 +60,9 @@ export default function Modules() {
 
 
       <div>
+        <h1 style={{ paddingLeft: 25 }}>What the people think</h1>
         <ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={createModuleForCourse} /><br /><br /><br /><br />
-        <ul id="wd-modules" className="list-group rounded-0">
+        <ul id="wd-modules" className="list-group rounded-0" style={{ padding: 25 }}>
           {modules
             //.filter((module: any) => module.course === cid)
             .map((module: any) => (
@@ -80,10 +81,10 @@ export default function Modules() {
                       }}
                       defaultValue={module.name} />
                   )}
-                  <ModuleControlButtons
+                  {/* <ModuleControlButtons
                     moduleId={module._id}
                     deleteModule={(moduleId) => removeModule(moduleId)}
-                    editModule={(moduleId) => dispatch(editModule(moduleId))} />
+                    editModule={(moduleId) => dispatch(editModule(moduleId))} /> */}
                 </div>
                 {module.lessons && (
                   <ul className="wd-lessons list-group rounded-0">

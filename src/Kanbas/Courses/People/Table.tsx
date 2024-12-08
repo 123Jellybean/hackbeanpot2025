@@ -9,7 +9,7 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
 
 
   //const { cid } = useParams();
-  //const { users, enrollments } = db;
+  //const { users, enrollments } = db;\
 
   return (
     <div id="wd-people-table">

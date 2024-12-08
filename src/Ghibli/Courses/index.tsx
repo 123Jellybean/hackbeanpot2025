@@ -12,24 +12,22 @@ import { Link, useLocation } from "react-router-dom";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
-    const course = courses.find((course) => course._id === cid);
+    const course = courses.find((course) => course.id === cid);
 
 
     return (
         <div id="wd-courses">
             <h2 className="text-danger">
-                <FaAlignJustify className="me-4 fs-4 mb-1" />
+
                 {course && course.name}
             </h2>
-            <hr />
+
 
             <div className="d-flex">
                 <div className="d-none d-md-block">
-                    <CoursesNavigation />
+
                 </div>
                 <div className="flex-fill">
-
-
 
                     <Routes>
                         <Route path="/" element={<Navigate to="Home" />} />

@@ -7,12 +7,14 @@ import "./styles.css";
 //import * as db from "./Database";
 import * as client from "./Courses/client";
 import * as userClient from "./Account/client";
+
 import * as courseClient from "./Courses/client";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "./Account/ProtectedRoute";
 import Session from "./Account/Session";
 import { useSelector } from "react-redux";
 import Search from "./Search";
+import Following from "./Courses/Following";
 
 export default function Ghibli() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -48,14 +50,29 @@ export default function Ghibli() {
     );
   };
 
+  const updateFollowing = async (movieId: string, enrolled: boolean) => {
+    if (enrolled) {
+      await userClient.enrollIntoCourse(currentUser._id, movieId);
+    } else {
+      await userClient.unenrollFromCourse(currentUser._id, movieId);
+    }
+    setCourses(
+      courses.map((course) => {
+        if (course._id === movieId) {
+          return { ...course, enrolled: enrolled };
+        } else {
+          return course;
+        }
+      })
+    );
+  };
 
   const fetchCourses = async () => {
     try {
       const allCourses = await courseClient.fetchAllCourses();
-      const enrolledCourses =
-        await userClient.findCoursesForUser(
-          currentUser._id
-        ); // maybe delete
+      const enrolledCourses = await userClient.findCoursesForUser(
+        currentUser._id
+      ); // maybe delete
       const courses = allCourses.map((course: any) => {
         // if (enrolledCourses.find((c: any) => c._id === course._id)) {
         //   return { ...course, enrolled: true };
@@ -76,13 +93,16 @@ export default function Ghibli() {
     } else {
       findCoursesForUser();
     }
-
   }, [currentUser, enrolling]);
 
   const [course, setCourse] = useState<any>({
-    _id: "0", name: "New Course", number: "New Number",
-    startDate: "2023-09-10", endDate: "2023-12-15",
-    image: "/images/cybertruck.jpg", description: "New Description"
+    _id: "0",
+    name: "New Course",
+    number: "New Number",
+    startDate: "2023-09-10",
+    endDate: "2023-12-15",
+    image: "/images/cybertruck.jpg",
+    description: "New Description",
   });
   const addNewCourse = async () => {
     //const newCourse = await userClient.createCourse(course);
@@ -107,53 +127,72 @@ export default function Ghibli() {
     );
   };
   return (
-
     <Session>
       <div id="wd-kanbas">
-
         <KanbasNavigation />
-        <div className="wd-main-content-offset p-3">
+        <div className="wd-main-content-offset">
           <Routes>
             <Route path="/" element={<Navigate to="Dashboard" />} />
             <Route path="/Account/*" element={<Account />} />
-            <Route path="/Dashboard" element={
+            <Route
+              path="/Dashboard"
+              element={
+                <Dashboard
+                  courses={courses}
+                  course={course}
+                  setCourse={setCourse}
+                  addNewCourse={addNewCourse}
+                  deleteCourse={deleteCourse}
+                  updateCourse={updateCourse}
+                  enrolling={enrolling}
+                  setEnrolling={setEnrolling}
+                  updateEnrollment={updateEnrollment}
+                />
+              }
+            />
 
-              <Dashboard
-                courses={courses}
-                course={course}
-                setCourse={setCourse}
-                addNewCourse={addNewCourse}
-                deleteCourse={deleteCourse}
-                updateCourse={updateCourse}
-                enrolling={enrolling}
-                setEnrolling={setEnrolling}
-                updateEnrollment={updateEnrollment}
-              />
-            } />
+            <Route
+              path="/Movies/:cid/*"
+              element={<Courses courses={courses} />}
+            />
 
-            <Route path="/Movies/:cid/*" element={
-              <Courses courses={courses} />} />
+            <Route
+              path="/Search"
+              element={
+                <Search
+                  courses={courses}
+                  course={course}
+                  setCourse={setCourse}
+                  addNewCourse={addNewCourse}
+                  deleteCourse={deleteCourse}
+                  updateCourse={updateCourse}
+                  enrolling={enrolling}
+                  setEnrolling={setEnrolling}
+                  updateEnrollment={updateEnrollment}
+                />
+              }
+            />
 
-            <Route path="/Search" element={
+            <Route
+              path="/Following"
+              element={
+                <Following
+                  courses={courses}
+                  course={course}
+                  setCourse={setCourse}
+                  addNewCourse={addNewCourse}
+                  deleteCourse={deleteCourse}
+                  updateCourse={updateCourse}
+                  enrolling={enrolling}
+                  setEnrolling={setEnrolling}
+                  updateEnrollment={updateEnrollment}
+                />
+              }
+            />
 
-              <Search
-                courses={courses}
-                course={course}
-                setCourse={setCourse}
-                addNewCourse={addNewCourse}
-                deleteCourse={deleteCourse}
-                updateCourse={updateCourse}
-                enrolling={enrolling}
-                setEnrolling={setEnrolling}
-
-                updateEnrollment={updateEnrollment}
-
-              />
-            } />
             {/* <Route path="/Calendar" element={<h1>Calendar</h1>} /> */}
             <Route path="/Inbox" element={<h1>Inbox</h1>} />
           </Routes>
-
         </div>
       </div>
     </Session>

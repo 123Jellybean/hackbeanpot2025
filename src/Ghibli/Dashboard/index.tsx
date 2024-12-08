@@ -1,158 +1,165 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Carousel } from "react-bootstrap";
+import { FaRegCircleUser } from "react-icons/fa6";
+//import { movies } from "../Database";
+import Courses from "../Courses";
 
-export default function Dashboard({ courses, course, setCourse, addNewCourse,
-  deleteCourse, updateCourse, enrolling, setEnrolling, updateEnrollment }: {
-    courses: any[]; course: any; setCourse: (course: any) => void;
-    addNewCourse: () => void; deleteCourse: (course: any) => void;
-    updateCourse: () => void;
-    enrolling: boolean;
-    setEnrolling: (enrolling: boolean) => void;
-    updateEnrollment: (courseId: string, enrolled: boolean) => void
-  }) {
+export default function Dashboard({
+  courses,
+  course,
+  setCourse,
+  addNewCourse,
+  deleteCourse,
+  updateCourse,
+  enrolling,
+  setEnrolling,
+  updateEnrollment,
+}: {
+  courses: any[];
+  course: any;
+  setCourse: (course: any) => void;
+  addNewCourse: () => void;
+  deleteCourse: (course: any) => void;
+  updateCourse: () => void;
+  enrolling: boolean;
+  setEnrolling: (enrolling: boolean) => void;
+  updateEnrollment: (courseId: string, enrolled: boolean) => void;
+}) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
 
   const [showAll, setShowAll] = useState(true);
 
-
-
+  function rgba(r: number, g: number, b: number, a: number): string {
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+  }
   return (
-    <div id="wd-dashboard">
-      <h1 id="wd-dashboard-title">
-        Dashboard
-
-        <button
-          onClick={() => setEnrolling(!enrolling)}
-          className="float-end btn btn-primary"
+    <div
+      id="wd-dashboard"
+      style={{
+        backgroundImage: "url(/images/dragon.jpg)",
+        backgroundSize: "cover",
+        minHeight: "100vh",
+      }}
+    >
+      <div className="d-flex align-items-center justify-content-between">
+        {/* Dashboard Title */}
+        <h1
+          id="wd-dashboard-title"
+          className="mb-0 p-3"
+          style={{ fontFamily: "Courier New", fontWeight: "bold" }}
         >
-          {enrolling ? "My Courses" : "All Courses"}
-        </button>
+          Dashboard
+        </h1>
 
-      </h1>
-      <hr />
+        {/* Account Button */}
+        {/* <button
+          onClick={() => setEnrolling(!enrolling)}
+          className="float-end btn btn-primary m-3"
+        >
+          {enrolling ? "User View" : "Admin View"}
+        </button> */}
+      </div>
       <br />
 
-      {currentUser?.role === "FACULTY" && (
-        <div>
-          <input
-            value={course.title}
-            className="form-control mb-2"
-            onChange={(e) => setCourse({ ...course, title: e.target.value })}
-          />
-
-          <textarea
-            value={course.description}
-            className="form-control"
-            onChange={(e) => setCourse({ ...course, description: e.target.value })}
-          />
-          <br />
-
-          <h5>
-            New Course
-            <button
-              className="btn btn-primary float-end"
-              id="wd-add-new-course-click"
-              onClick={addNewCourse}
-            >
-              Add
-            </button>
-
-            <button
-              className="btn btn-warning float-end me-2"
-              onClick={updateCourse}
-              id="wd-update-course-click"
-            >
-              Update
-            </button>
-          </h5>
-          <hr />
-        </div>
-      )}
-
-      {currentUser?.role === "STUDENT" && (
-        <div>
-          <button
-            style={{ float: "right" }}
-            className="btn btn-primary"
-            onClick={() => setShowAll((prev) => !prev)}
-          >
-            Enrollments
-          </button>
-        </div>
-      )}
-
-      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
+      <h2
+        id="wd-dashboard-published"
+        style={{ fontFamily: "Courier New", fontWeight: "bold" }}
+        className="ps-3"
+      >
+        Movies
+      </h2>
+      {/* Slideshow */}
+      <Carousel>
+        {courses.map((movie) => (
+          <Carousel.Item key={movie.id}>
+            <img
+              className="d-block w-100"
+              src={movie.movie_banner}
+              alt={movie.title}
+              style={{ height: "400px", objectFit: "cover" }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+              }}
+            ></div>
+            <Carousel.Caption>
+              <h3>{movie.title}</h3>
+              <p>{movie.description}</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
       <hr />
-      <div id="wd-dashboard-courses" className="row">
 
-        <div className="row row-cols-1 row-cols-md-5 g-4">
-          {courses.map((course) => (
-
-            <div className="wd-dashboard-course col" style={{ width: "300px" }}>
-              <div className="card rounded-3 overflow-hidden">
-                <Link
-                  to={`/Ghibli/Movies/${course._id}/Home`}
-                  className="wd-dashboard-course-link text-decoration-none text-dark"
+      {/* Movie Rankings Section */}
+      <div id="movie-rankings" className="mt-5 ps-3">
+        <h2 style={{ fontFamily: "Courier New", fontWeight: "bold" }}>
+          Rankings
+        </h2>
+        <table className="table table-striped">
+          <thead style={{ background: rgba(0, 0, 0, 0.5), color: "white" }}>
+            <tr>
+              <th
+                style={{
+                  backgroundColor: "transparent",
+                  fontSize: 18,
+                  color: "white",
+                }}
+              >
+                Rank
+              </th>
+              <th
+                style={{
+                  backgroundColor: "transparent",
+                  fontSize: 18,
+                  color: "white",
+                }}
+              >
+                Movie Title
+              </th>
+              <th
+                style={{
+                  backgroundColor: "transparent",
+                  fontSize: 18,
+                  color: "white",
+                }}
+              >
+                Rating
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {courses
+              .sort((a, b) => Number(b.rt_score) - Number(a.rt_score)) // Sort by rating (highest to lowest)
+              .map((movie, index) => (
+                <tr
+                  key={movie.id}
+                  style={{
+                    background: rgba(0, 0, 0, 0.5),
+                    color: "white",
+                  }}
                 >
-                  <img src={course.movie_banner} width="100%" height={160} />
-                  <div className="card-body">
-                    <h5 className="wd-dashboard-course-title card-title">
-
-
-                      <button
-                        onClick={(event) => {
-                          event.preventDefault();
-                          updateEnrollment(course._id, !course.enrolled);
-                        }}
-                        className={`btn ${course.enrolled ? "btn-danger" : "btn-success"
-                          } float-end`}
-                      >
-                        {course.enrolled ? "Unenroll" : "Enroll"}
-                      </button>
-
-                      {course.title}
-
-                    </h5>
-                    <p
-                      className="wd-dashboard-course-title card-text overflow-y-hidden"
-                      style={{ maxHeight: 100 }}
-                    >
-                      {course.description}
-                    </p>
-                    <button className="btn btn-primary">Go</button>
-
-                    {currentUser?.role === "FACULTY" && (
-                      <div style={{ float: "right", display: "flex" }}>
-                        <button
-                          onClick={(event) => {
-                            event.preventDefault();
-                            deleteCourse(course._id);
-                          }}
-                          className="btn btn-danger float-end"
-                          id="wd-delete-course-click"
-                        >
-                          Delete
-                        </button>
-
-                        <button
-                          id="wd-edit-course-click"
-                          onClick={(event) => {
-                            event.preventDefault();
-                            setCourse(course);
-                          }}
-                          className="btn btn-warning me-2 float-end"
-                        >
-                          Edit
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
+                  <td style={{ background: "transparent", color: "white" }}>
+                    {index + 1}
+                  </td>
+                  <td style={{ background: "transparent", color: "white" }}>
+                    {movie.title}
+                  </td>
+                  <td style={{ background: "transparent", color: "white" }}>
+                    {movie.rt_score ?? "N/A"}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

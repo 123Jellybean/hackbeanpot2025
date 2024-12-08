@@ -1,37 +1,43 @@
 import { Link, useLocation } from "react-router-dom";
-import { AiOutlineDashboard } from "react-icons/ai";
-import { IoCalendarOutline } from "react-icons/io5";
-import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
-import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
+
 export default function KanbasNavigation() {
   const { pathname } = useLocation();
   const links = [
-    { label: "Dashboard", path: "/Ghibli/Dashboard", icon: AiOutlineDashboard },
-    { label: "Courses", path: "/Ghibli/Dashboard", icon: LiaBookSolid },
-    { label: "Search", path: "/Ghibli/Search", icon: IoCalendarOutline },
-    { label: "Inbox", path: "/Ghibli/Inbox", icon: FaInbox },
-    { label: "Labs", path: "/Labs", icon: LiaCogSolid },
+    { label: "Profile", path: "/Ghibli/Account/Profile", img: "/images/lilguy.png" },
+    { label: "Search", path: "/Ghibli/Search", img: "/images/calcifer.png" },
+    { label: "Following", path: "/Ghibli/Following", img: "/images/lilguy.png" },
+    { label: "Labs", path: "/Labs", img: "/images/noface.png" },
   ];
 
   return (
-    <div id="wd-kanbas-navigation" style={{ width: 110 }}
-      className="list-group rounded-0 position-fixed
-      bottom-0 top-0 d-none d-md-block bg-black z-2">
-      <a href="https://www.northeastern.edu/"
-        id="wd-neu-link" target="_blank"
-        className="list-group-item bg-black border-0 text-center">
-        <img src="/images/totoro.png" width="75px" /></a>
-
-      <Link to="/Ghibli/Account" className={`list-group-item text-center border-0 bg-black
-            ${pathname.includes("Account") ? "bg-white text-danger" : "bg-black text-white"}`}>
-        <FaRegCircleUser className={`fs-1 ${pathname.includes("Account") ? "text-danger" : "text-white"}`} />
-        <br />
-        Account
+    <div
+      id="wd-kanbas-navigation"
+      style={{ width: 110 }}
+      className="list-group rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2"
+    >
+      <Link
+        to="/Ghibli/Dashboard"
+        className="list-group-item bg-black border-0 text-center text-white"
+      >
+        <img src="/images/totoro.png" width="75px" alt="Totoro" />
+        Dashboard
       </Link>
+
       {links.map((link) => (
-        <Link key={link.path} to={link.path} className={`list-group-item bg-black text-center border-0
-              ${pathname.includes(link.label) ? "text-danger bg-white" : "text-white bg-black"}`}>
-          {link.icon({ className: "fs-1 text-danger" })}
+        <Link
+          key={link.path}
+          to={link.path}
+          className={`list-group-item bg-black text-center border-0
+              ${pathname.includes(link.label)
+              ? "text-danger bg-white"
+              : "text-white bg-black"}`}
+        >
+          <img
+            src={link.img}
+            alt={link.label}
+            className="fs-1"
+            style={{ width: "40px", height: "50px" }} // Adjust the size as needed
+          />
           <br />
           {link.label}
         </Link>
