@@ -10,7 +10,7 @@ import PeopleTable from "./People/Table";
 import { Link, useLocation } from "react-router-dom";
 
 
-export default function Courses({ courses }: { courses: any[]; }) {
+export default function Movies({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
     const course = courses.find((course) => course.id === cid);
 

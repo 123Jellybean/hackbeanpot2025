@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Carousel } from "react-bootstrap";
 import { FaRegCircleUser } from "react-icons/fa6";
-//import { movies } from "../Database";
-import Courses from "../Courses";
 
 export default function Dashboard({
-  courses,
+  movies,
   course,
   setCourse,
   addNewCourse,
@@ -17,7 +15,7 @@ export default function Dashboard({
   setEnrolling,
   updateEnrollment,
 }: {
-  courses: any[];
+  movies: any[];
   course: any;
   setCourse: (course: any) => void;
   addNewCourse: () => void;
@@ -53,13 +51,6 @@ export default function Dashboard({
           Dashboard
         </h1>
 
-        {/* Account Button */}
-        {/* <button
-          onClick={() => setEnrolling(!enrolling)}
-          className="float-end btn btn-primary m-3"
-        >
-          {enrolling ? "User View" : "Admin View"}
-        </button> */}
       </div>
       <br />
 
@@ -72,7 +63,7 @@ export default function Dashboard({
       </h2>
       {/* Slideshow */}
       <Carousel>
-        {courses.map((movie) => (
+        {movies.map((movie) => (
           <Carousel.Item key={movie.id}>
             <img
               className="d-block w-100"
@@ -137,7 +128,7 @@ export default function Dashboard({
             </tr>
           </thead>
           <tbody>
-            {courses
+            {movies
               .sort((a, b) => Number(b.rt_score) - Number(a.rt_score)) // Sort by rating (highest to lowest)
               .map((movie, index) => (
                 <tr

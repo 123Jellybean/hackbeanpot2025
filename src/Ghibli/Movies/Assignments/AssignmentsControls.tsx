@@ -22,26 +22,7 @@ export default function AssignmentsControls() {
   };
 
   const navigate = useNavigate();
-  const handleAddAssignment = (() => {
-    if (cid) {
-      const aid = new Date().getTime().toString()
 
-      dispatch(addAssignment({
-        _id: `A${aid}`,
-        title: "New Assignment",
-        course: cid,
-        description: "Test Assignment",
-        points: "100",
-        dueDate: "May 6 at 12:00am",
-        availableFrom: "May 6 at 12:00am",
-        availableUntil: "May 6 at 12:00am",
-      }))
-
-      navigate(`/Kanbas/Courses/${cid}/Assignments/A${aid}`);
-    } else {
-      console.warn("No course ID provided for navigation");
-    }
-  });
   return (
     <div id="wd-assignments-controls" className="text-nowrap">
       <button onClick={createAssignmentForCourse} id="wd-add-assignment-btn" className="btn btn-lg btn-danger me-1 float-end">
@@ -65,10 +46,4 @@ export default function AssignmentsControls() {
   );
 }
 
-/*
-   <Link to={`/Kanbas/Courses/A1/Assignments/A1`}>
-        <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger me-1 float-end">
-          <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-          Assignment</button>
-      </Link>
-*/
+

@@ -48,8 +48,8 @@ export const fetchAllCourses = async () => {
   const { data } = await axiosWithCredentials.get(MOVIES_API);
   return data;
 };
-export const updateCourse = async (course: any) => {
-    const { data } = await axiosWithCredentials.put(`${MOVIES_API}/${course._id}`, course);
+export const updateCourse = async (movie: any) => {
+    const { data } = await axiosWithCredentials.put(`${MOVIES_API}/${movie._id}`, movie);
     return data;
   };
   

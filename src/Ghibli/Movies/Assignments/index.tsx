@@ -67,9 +67,7 @@ export default function Assignments() {
                 <GoChecklist className="fs-3" style={{ color: "green" }} />
 
                 <div>
-                  <a className="m-0 text-dark decoration-none">
-                    <Link to={`/Kanbas/Courses/${assignment.course}/Assignments/${assignment._id}`}
-                      className="wd-dashboard-course-link text-decoration-none text-dark" ><b>{assignment._id}</b></Link></a>
+
                   <div className="flex-auto">
                     <p className="m-0 text-danger pe-1">Multiple Modules</p>
                     <p className="m-0">| <b>Not available until</b> {assignment.available}</p>

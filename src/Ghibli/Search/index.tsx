@@ -45,7 +45,7 @@ export default function Search({
       }}
     >
       <h1
-        id="wd-dashboard-title"
+        id="wd-search-title"
         style={{ fontFamily: "Courier New", fontWeight: "bold" }}
         className="mb-0 p-3"
       >
@@ -83,7 +83,7 @@ export default function Search({
         Titles ({filteredCourses.length})
       </h2>
       <hr />
-      <div id="wd-dashboard-courses" className="row">
+      <div id="wd-search-movies" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
           {filteredCourses.map((course) => (
             <div

@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function Following({ courses, course, setCourse, addNewCourse,
-    deleteCourse, updateCourse, enrolling, setEnrolling, updateEnrollment }: {
-        courses: any[]; course: any; setCourse: (course: any) => void;
+export default function Following({ movies, movie, setMovie, addNewCourse,
+    deleteCourse, updateCourse, following, setFollowing, updateEnrollment }: {
+        movies: any[]; movie: any; setMovie: (course: any) => void;
         addNewCourse: () => void; deleteCourse: (course: any) => void;
         updateCourse: () => void;
-        enrolling: boolean;
-        setEnrolling: (enrolling: boolean) => void;
+        following: boolean;
+        setFollowing: (following: boolean) => void;
         updateEnrollment: (courseId: string, enrolled: boolean) => void
     }) {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -23,10 +23,10 @@ export default function Following({ courses, course, setCourse, addNewCourse,
                 Following
 
                 <button
-                    onClick={() => setEnrolling(!enrolling)}
+                    onClick={() => setFollowing(!following)}
                     className="float-end btn btn-primary"
                 >
-                    {enrolling ? "My Courses" : "All Courses"}
+                    {following ? "My Movies" : "All Movies"}
                 </button>
 
             </h1>
@@ -36,20 +36,20 @@ export default function Following({ courses, course, setCourse, addNewCourse,
             {currentUser?.role === "FACULTY" && (
                 <div>
                     <input
-                        value={course.title}
+                        value={movie.title}
                         className="form-control mb-2"
-                        onChange={(e) => setCourse({ ...course, title: e.target.value })}
+                        onChange={(e) => setMovie({ ...movie, title: e.target.value })}
                     />
 
                     <textarea
-                        value={course.description}
+                        value={movie.description}
                         className="form-control"
-                        onChange={(e) => setCourse({ ...course, description: e.target.value })}
+                        onChange={(e) => setMovie({ ...movie, description: e.target.value })}
                     />
                     <br />
 
                     <h5>
-                        New Course
+                        New Movie
                         <button
                             className="btn btn-primary float-end"
                             id="wd-add-new-course-click"
@@ -70,30 +70,19 @@ export default function Following({ courses, course, setCourse, addNewCourse,
                 </div>
             )}
 
-            {currentUser?.role === "STUDENT" && (
-                <div>
-                    <button
-                        style={{ float: "right" }}
-                        className="btn btn-primary"
-                        onClick={() => setShowAll((prev) => !prev)}
-                    >
-                        Enrollments
-                    </button>
-                </div>
-            )}
 
-            <div id="wd-dashboard-courses" className="row">
+            <div id="wd-following-movies" className="row">
 
                 <div className="row row-cols-1 row-cols-md-5 g-4">
-                    {courses.map((course) => (
+                    {movies.map((movie) => (
 
                         <div className="wd-dashboard-course col" style={{ width: "300px" }}>
                             <div className="card rounded-3 overflow-hidden">
                                 <Link
-                                    to={`/Ghibli/Movies/${course._id}/Home`}
+                                    to={`/Ghibli/Movies/${movie._id}/Home`}
                                     className="wd-dashboard-course-link text-decoration-none text-dark"
                                 >
-                                    <img src={course.movie_banner} width="100%" height={160} />
+                                    <img src={movie.movie_banner} width="100%" height={160} />
                                     <div className="card-body">
                                         <h5 className="wd-dashboard-course-title card-title">
 
@@ -101,22 +90,22 @@ export default function Following({ courses, course, setCourse, addNewCourse,
                                             <button
                                                 onClick={(event) => {
                                                     event.preventDefault();
-                                                    updateEnrollment(course._id, !course.enrolled);
+                                                    updateEnrollment(movie._id, !movie.enrolled);
                                                 }}
-                                                className={`btn ${course.enrolled ? "btn-danger" : "btn-success"
+                                                className={`btn ${movie.enrolled ? "btn-danger" : "btn-success"
                                                     } float-end`}
                                             >
-                                                {course.enrolled ? "Unenroll" : "Enroll"}
+                                                {movie.enrolled ? "Unfollow" : "Follow"}
                                             </button>
 
-                                            {course.title}
+                                            {movie.title}
 
                                         </h5>
                                         <p
                                             className="wd-dashboard-course-title card-text overflow-y-hidden"
                                             style={{ maxHeight: 100 }}
                                         >
-                                            {course.description}
+                                            {movie.description}
                                         </p>
 
                                         {currentUser?.role === "FACULTY" && (
@@ -124,7 +113,7 @@ export default function Following({ courses, course, setCourse, addNewCourse,
                                                 <button
                                                     onClick={(event) => {
                                                         event.preventDefault();
-                                                        deleteCourse(course._id);
+                                                        deleteCourse(movie._id);
                                                     }}
                                                     className="btn btn-danger float-end"
                                                     id="wd-delete-course-click"
@@ -136,7 +125,7 @@ export default function Following({ courses, course, setCourse, addNewCourse,
                                                     id="wd-edit-course-click"
                                                     onClick={(event) => {
                                                         event.preventDefault();
-                                                        setCourse(course);
+                                                        setMovie(movie);
                                                     }}
                                                     className="btn btn-warning me-2 float-end"
                                                 >

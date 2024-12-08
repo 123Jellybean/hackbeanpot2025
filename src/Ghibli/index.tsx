@@ -1,27 +1,28 @@
 import { Routes, Route, Navigate } from "react-router";
 import Account from "./Account";
 import Dashboard from "./Dashboard";
-import KanbasNavigation from "./Navigation";
-import Courses from "./Courses";
+import GhibliNavigation from "./Navigation";
+import Movies from "./Movies";
 import "./styles.css";
 //import * as db from "./Database";
-import * as client from "./Courses/client";
+import * as client from "./Movies/client";
 import * as userClient from "./Account/client";
 
-import * as courseClient from "./Courses/client";
+import * as courseClient from "./Movies/client";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "./Account/ProtectedRoute";
 import Session from "./Account/Session";
 import { useSelector } from "react-redux";
 import Search from "./Search";
-import Following from "./Courses/Following";
+import Following from "./Movies/Following";
 
 export default function Ghibli() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
 
-  const [courses, setCourses] = useState<any[]>([]);
+  const [movies, setCourses] = useState<any[]>([]);
 
   const [enrolling, setEnrolling] = useState<boolean>(true);
+  const [following, setFollowing] = useState<boolean>(true);
   const [enrollingS, setEnrollingS] = useState<boolean>(true);
 
   const findCoursesForUser = async () => {
@@ -40,7 +41,7 @@ export default function Ghibli() {
       await userClient.unenrollFromCourse(currentUser._id, courseId);
     }
     setCourses(
-      courses.map((course) => {
+      movies.map((course) => {
         if (course._id === courseId) {
           return { ...course, enrolled: enrolled };
         } else {
@@ -57,7 +58,7 @@ export default function Ghibli() {
       await userClient.unenrollFromCourse(currentUser._id, movieId);
     }
     setCourses(
-      courses.map((course) => {
+      movies.map((course) => {
         if (course._id === movieId) {
           return { ...course, enrolled: enrolled };
         } else {
@@ -104,20 +105,30 @@ export default function Ghibli() {
     image: "/images/cybertruck.jpg",
     description: "New Description",
   });
+
+  const [movie, setMovie] = useState<any>({
+    _id: "0",
+    name: "New Course",
+    number: "New Number",
+    startDate: "2023-09-10",
+    endDate: "2023-12-15",
+    image: "/images/cybertruck.jpg",
+    description: "New Description",
+  });
   const addNewCourse = async () => {
     //const newCourse = await userClient.createCourse(course);
     const newCourse = await courseClient.createCourse(course);
-    setCourses([...courses, newCourse]);
+    setCourses([...movies, newCourse]);
   };
   const deleteCourse = async (courseId: string) => {
     const status = await courseClient.deleteCourse(courseId);
-    setCourses(courses.filter((course) => course._id !== courseId));
+    setCourses(movies.filter((course) => course._id !== courseId));
   };
 
   const updateCourse = async () => {
     await courseClient.updateCourse(course);
     setCourses(
-      courses.map((c) => {
+      movies.map((c) => {
         if (c._id === course._id) {
           return course;
         } else {
@@ -126,10 +137,24 @@ export default function Ghibli() {
       })
     );
   };
+
+  const updateMovie = async () => {
+    await courseClient.updateCourse(course);
+    setCourses(
+      movies.map((c) => {
+        if (c._id === course._id) {
+          return movie;
+        } else {
+          return c;
+        }
+      })
+    );
+  };
+
   return (
     <Session>
-      <div id="wd-kanbas">
-        <KanbasNavigation />
+      <div id="wd-ghibli">
+        <GhibliNavigation />
         <div className="wd-main-content-offset">
           <Routes>
             <Route path="/" element={<Navigate to="Dashboard" />} />
@@ -138,7 +163,7 @@ export default function Ghibli() {
               path="/Dashboard"
               element={
                 <Dashboard
-                  courses={courses}
+                  movies={movies}
                   course={course}
                   setCourse={setCourse}
                   addNewCourse={addNewCourse}
@@ -153,14 +178,14 @@ export default function Ghibli() {
 
             <Route
               path="/Movies/:cid/*"
-              element={<Courses courses={courses} />}
+              element={<Movies courses={movies} />}
             />
 
             <Route
               path="/Search"
               element={
                 <Search
-                  courses={courses}
+                  courses={movies}
                   course={course}
                   setCourse={setCourse}
                   addNewCourse={addNewCourse}
@@ -177,14 +202,14 @@ export default function Ghibli() {
               path="/Following"
               element={
                 <Following
-                  courses={courses}
-                  course={course}
-                  setCourse={setCourse}
+                  movies={movies}
+                  movie={course}
+                  setMovie={setMovie}
                   addNewCourse={addNewCourse}
                   deleteCourse={deleteCourse}
-                  updateCourse={updateCourse}
-                  enrolling={enrolling}
-                  setEnrolling={setEnrolling}
+                  updateCourse={updateMovie}
+                  following={following}
+                  setFollowing={setFollowing}
                   updateEnrollment={updateEnrollment}
                 />
               }

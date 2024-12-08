@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import PeopleTable from "../Courses/People/Table";
+import PeopleTable from "../Movies/People/Table";
 import * as client from "./client";
 import { FaPlus } from "react-icons/fa";
-import AdminPeopleDetails from "../Courses/People/AdminDetails";
-import AdminPeopleTable from "../Courses/People/AdminPeopleTable";
+import AdminPeopleDetails from "../Movies/People/AdminDetails";
+import AdminPeopleTable from "../Movies/People/AdminPeopleTable";
 export default function UsersManagement() {
     const [users, setUsers] = useState<any[]>([]);
     const { uid } = useParams();
@@ -18,7 +18,7 @@ export default function UsersManagement() {
             password: "password123",
             email: `email${users.length + 1}@neu.edu`,
             section: "S101",
-            role: "STUDENT",
+            role: "USER",
         });
         setUsers([...users, user]);
     };
@@ -61,8 +61,8 @@ export default function UsersManagement() {
                 className="form-control float-start w-25 me-2 wd-filter-by-name" />
             <select value={role} onChange={(e) => filterUsersByRole(e.target.value)}
                 className="form-select float-start w-25 wd-select-role" >
-                <option value="">All Roles</option>    <option value="STUDENT">Students</option>
-                <option value="TA">Assistants</option> <option value="FACULTY">Faculty</option>
+                <option value="">All Roles</option>    <option value="USER">User</option>
+
                 <option value="ADMIN">Administrators</option>
             </select>
             <AdminPeopleTable users={users} />

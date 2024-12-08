@@ -1,17 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
 
-export default function KanbasNavigation() {
+export default function GhibliNavigation() {
   const { pathname } = useLocation();
   const links = [
     { label: "Profile", path: "/Ghibli/Account/Profile", img: "/images/lilguy.png" },
     { label: "Search", path: "/Ghibli/Search", img: "/images/calcifer.png" },
-    { label: "Following", path: "/Ghibli/Following", img: "/images/lilguy.png" },
+    { label: "Following", path: "/Ghibli/Following", img: "/images/guys.png" },
     { label: "Labs", path: "/Labs", img: "/images/noface.png" },
   ];
 
   return (
     <div
-      id="wd-kanbas-navigation"
+      id="wd-ghibli-navigation"
       style={{ width: 110 }}
       className="list-group rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2"
     >

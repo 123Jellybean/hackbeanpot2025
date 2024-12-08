@@ -64,7 +64,6 @@ export default function AdminPeopleDetails() {
             </div>
             <b>Roles:</b>           <span className="wd-roles">         {user.role}         </span> <br />
             <b>Login ID:</b>        <span className="wd-login-id">      {user.loginId}      </span> <br />
-            <b>Section:</b>         <span className="wd-section">       {user.section}      </span> <br />
             <b>Total Activity:</b>  <span className="wd-total-activity">{user.totalActivity}</span>
             <hr />
             <button onClick={() => deleteUser(uid)} className="btn btn-danger float-end wd-delete" > Delete </button>

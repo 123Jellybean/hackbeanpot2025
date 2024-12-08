@@ -10,7 +10,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 
 
 
-{/* Find more icons */}
+{/* Find more icons */ }
 export default function CourseStatus() {
   return (
     <div id="wd-course-status" style={{ width: "300px" }}>
@@ -41,22 +41,7 @@ export default function CourseStatus() {
         <IoMdNotificationsOutline className="me-2 fs-5" /> View Course Notifications </button>
       {/* Complete the rest of the buttons */}
     </div>
-);}
+  );
+}
 
 
-
-{/*export default function CourseStatus() {
-    return (
-      <div id="wd-course-status">
-        <h2>Course Status</h2>
-        -<button>Unpublish</button> 
-        -<button>Publish</button>
-        -<button>Import Existing Content</button>
-        -<button>Import from Commons</button>
-        -<button>Choose Home Page</button>
-        -<button>View Course Stream</button>
-        <button>New Announcement</button>
-        <button>New Analytics</button>
-        <button>View Course Notifications</button>
-      </div>
-  );} */}

@@ -136,27 +136,8 @@ export default function AssignmentEditor() {
 
 
                     <hr />
-                    <Link to={`/Kanbas/Courses/${assignment.course}/Assignments`} className="text-decoration-none text-white" >
-                        <button className="form-control btn btn-lg btn-danger w-25"
-                            style={{ float: "right" }}
-                            id="wd-save">
 
-                            Save
 
-                        </button>
-                    </Link>
-                    <Link to={`/Kanbas/Courses/${assignment.course}/Assignments`} className="text-decoration-none text-dark" >
-                        <button className="form-control btn btn-lg  w-25"
-                            style={{
-                                background: "#c7cdd1", marginRight: "5px",
-                                float: "right"
-                            }}
-                            id="wd-cancel">
-
-                            Cancel
-
-                        </button>
-                    </Link>
 
                 </div>))
             }

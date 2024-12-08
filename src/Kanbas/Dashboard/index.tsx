@@ -51,13 +51,6 @@ export default function Dashboard({ courses, course, setCourse, addNewCourse,
         </div>
       }
 
-      {currentUser.role == "STUDENT" &&
-        <div>
-          <button style={{ float: "right" }} className="btn btn-primary" onClick={() => setShowAll(prev => !prev)}>
-            Enrollments
-          </button>
-        </div>
-      }
 
       <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
       <div id="wd-dashboard-courses" className="row">
@@ -108,26 +101,7 @@ export default function Dashboard({ courses, course, setCourse, addNewCourse,
                           </button>
                         </div>
                       }
-                      {currentUser.role == "STUDENT" &&
-                        <div style={{ float: "right", display: "flex" }}>
-                          <button onClick={(event) => {
-                            event.preventDefault();
-                            deleteCourse(course._id);
-                          }} style={{ color: "white", background: "green" }} className="btn float-end"
-                            id="wd-delete-course-click">
-                            Enroll
-                          </button>
 
-                          <button id="wd-edit-course-click"
-                            onClick={(event) => {
-                              event.preventDefault();
-                              setCourse(course);
-                            }}
-                            className="btn btn-danger me-2 float-end" >
-                            Unenroll
-                          </button>
-                        </div>
-                      }
 
                     </div>
                   </Link>
